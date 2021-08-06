@@ -48,7 +48,7 @@ namespace TimeCardServices.Utility
                 issuer: _issuer,
                 audience: _audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(5),//5分钟有效期
+                expires: DateTime.Now.AddMinutes(10),//5分钟有效期
                 signingCredentials: creds);
             string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
             return returnToken;

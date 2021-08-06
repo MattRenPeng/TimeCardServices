@@ -73,9 +73,6 @@ namespace TimeCardServices.Controllers
                 ModelState.AddModelError("UserType", "User type is only for admin or staff!");
                 return VaildateHelper.ReturnMessageObjectResult(ModelState);
             }
-           
-            
-           
 
         }
 
