@@ -45,7 +45,7 @@ namespace TimeCardServices.Controllers
         public ObjectResult getToken(string userName,string password,int userType)
         {
             UserViewModel user = new UserViewModel() { UserName = userName, Password = password };
-            if (userType !=0 && userType != 1 )
+            if (userType ==0 || userType == 1 )
             {
                 user.UserType = (UserType)userType;
                 //if (TryValidateModel(user) && ModelState.IsValid)
