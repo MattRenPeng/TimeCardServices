@@ -58,6 +58,7 @@ namespace TimeCardServices.Test
             int respected = 404;
             Domain.UserViewModel TestModel = new Domain.UserViewModel() { UserName = user_name, Password = "123" };
             TestModel.UserType = UserType.Admin;
+
             var result = controller.Login(TestModel);
             Assert.Equal(respected, result.StatusCode);
         
@@ -78,9 +79,8 @@ namespace TimeCardServices.Test
         {
           
             int respected = 404;
-            Domain.UserViewModel TestModel = new Domain.UserViewModel() { UserName = user_name, Password = "123" };
-            TestModel.UserType = UserType.Admin;
-            var result = controller.Login(TestModel);
+            Domain.UserForSignUpViewModel TestModel = new Domain.UserForSignUpViewModel() { UserName = user_name, Password = "123", Address = "", Email = "123@163.com" };
+            var result = controller.signUp(TestModel);
             Assert.Equal(respected, result.StatusCode);
             User existsUser = DB.Users.Find(TestModel.UserName);
             if (existsUser != null)

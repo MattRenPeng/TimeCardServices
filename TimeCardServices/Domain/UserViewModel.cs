@@ -19,6 +19,6 @@ namespace TimeCardServices.Domain
 
         [Required(ErrorMessage = "User type is only for admin or staff!")]
         [EnumDataType(typeof(UserType), ErrorMessage = "User type is only for admin or staff!")]
-        public UserType? UserType { get; set; }
+        public UserType UserType { get; set; }
     }
 }

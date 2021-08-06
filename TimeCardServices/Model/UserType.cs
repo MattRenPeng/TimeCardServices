@@ -7,7 +7,7 @@ namespace TimeCardServices.Model
 {
     public enum UserType
     {
-        Admin,
-        Staff
+        Staff =0,
+        Admin=1
     }
 }

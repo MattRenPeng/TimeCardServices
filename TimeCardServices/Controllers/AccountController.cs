@@ -27,28 +27,14 @@ namespace TimeCardServices.Controllers
             _service = service;
         }
 
-        // GET: api/<AccountController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<AccountController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<AccountController>
-        [HttpPost]
+        [HttpPost("Login")]
         public ObjectResult Login([FromBody] UserViewModel user)
         {
             if ( ModelState.IsValid)
             //if (TryValidateModel(user) && ModelState.IsValid)
-                {
-                return getToken(user.UserName, user.Password, user.UserType?.ToString());
+             {
+                return getToken(user.UserName, user.Password, (int)user.UserType);
             }
             else
             {
@@ -56,21 +42,19 @@ namespace TimeCardServices.Controllers
             }
         }
         [HttpGet("getToken")]
-        public ObjectResult getToken(string userName,string password,string userType)
+        public ObjectResult getToken(string userName,string password,int userType)
         {
             UserViewModel user = new UserViewModel() { UserName = userName, Password = password };
-
-            UserType EnumUseType= UserType.Staff;
-            if (!string.IsNullOrEmpty(userType) && Enum.TryParse<UserType>(userType, out EnumUseType))
+            if (userType !=0 && userType != 1 )
             {
-                user.UserType = EnumUseType;
+                user.UserType = (UserType)userType;
                 //if (TryValidateModel(user) && ModelState.IsValid)
              if (ModelState.IsValid)
                   {
                     User _user = _service.CheckLogin(user);
                     if (_user != null)
                     {
-                        string token = SecurityUtity.GetToken(_user, userType);
+                        string token = SecurityUtity.GetToken(_user, user.UserType.ToString());
                         return new OkObjectResult(token);
                     }
                     else
