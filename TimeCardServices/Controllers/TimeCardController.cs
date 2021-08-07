@@ -39,7 +39,7 @@ namespace TimeCardServices.Controllers
             return new OkObjectResult(_service.GetOneWeekData(userName, weekStart));
         }
 
-        [HttpPost("AddOneWekkData")]
+        [HttpPost("AddOneWeekData")]
         public ObjectResult AddOneWeekData([FromBody] TimeCardViewModel weekData)
         {
             if (ModelState.IsValid)
