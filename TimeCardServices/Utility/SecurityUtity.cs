@@ -37,7 +37,7 @@ namespace TimeCardServices.Utility
             {
                new Claim(ClaimTypes.Name, user.UserName),
                new Claim("Email",user.Email??""),
-               new Claim("Role",role??""),//传递其他信息  
+               new Claim(ClaimTypes.Role,role??""),//传递其他信息  
                new Claim("Address",user.Address??"")
               
             };
