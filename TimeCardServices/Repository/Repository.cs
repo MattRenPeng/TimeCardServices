@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using TimeCardServices.Model;
 
 namespace TimeCardServices.Repository
 {
@@ -94,7 +95,20 @@ namespace TimeCardServices.Repository
 
         public async Task DeleteAsync(TEntity entity)
         {
-            DbSet.Remove(entity);
+            if (typeof(TEntity) == typeof(User))
+            {
+                //Delete all timecard of the deleting user 
+                var ModelsDeleting = _dbContext.TimeCards.Where(f => f.UserName == (entity as User).UserName);
+                foreach (var item in ModelsDeleting)
+                {
+                    _dbContext.TimeCards.Remove(item);
+                }
+                DbSet.Remove(entity);
+            }
+            else
+            {
+                DbSet.Remove(entity);
+            }
             await _dbContext.SaveChangesAsync();
         }
 
@@ -164,7 +178,20 @@ namespace TimeCardServices.Repository
 
         public int Delete(TEntity entity)
         {
-            DbSet.Remove(entity);
+            if (typeof(TEntity) == typeof(User))
+            {
+                //Delete all timecard of the deleting user 
+                var ModelsDeleting = _dbContext.TimeCards.Where(f => f.UserName == (entity as User).UserName);
+                foreach (var item in ModelsDeleting)
+                {
+                    _dbContext.TimeCards.Remove(item);
+                }
+                DbSet.Remove(entity);
+            }
+            else
+            {
+                DbSet.Remove(entity);
+            }
             return _dbContext.SaveChanges();
         }
 
