@@ -70,14 +70,7 @@ namespace TimeCardServices.Controllers
         public ObjectResult Delete(DateTime weekStart)
         {
             string userName = HttpContext.User.Identity.Name;
-            int flag = _service.DeleteOneWeekData(userName, weekStart);
-            if (flag <= 0)
-            {
-                ModelState.AddModelError("UserName", "This week data is not exists!");
-                return VaildateHelper.ReturnMessageObjectResult(ModelState);
-            }
-            else
-                return new OkObjectResult(flag);
+            return DeleteByUserName(weekStart, userName);
         }
         [HttpDelete("Delete/{weekStart}/{userName}")]
         public ObjectResult DeleteByUserName(DateTime weekStart, string userName)
