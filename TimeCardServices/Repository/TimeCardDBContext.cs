@@ -11,7 +11,13 @@ namespace TimeCardServices.Repository
 
 
         { }
-         public Microsoft.EntityFrameworkCore.DbSet<User> Users { get; set; }
+         public DbSet<User> Users { get; set; }
+        public DbSet<TimeCard> TimeCards { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TimeCard>().HasKey(t => new { t.UserName, t.WeekStart });
+            base.OnModelCreating(modelBuilder);
+        }
     }
   
 }

@@ -30,7 +30,7 @@ namespace TimeCardServices.Services
             }
         }
 
-        public int AddUser(UserForSignUpViewModel UserForSignUpViewModel)
+        public int AddUser(UserForSignUpViewModel UserForSignUpViewModel,string create_user)
         {
             User user = new User();
             // AutoMapper.Mapper.Map<UserForSignUpViewModel, User>(UserForSignUpViewModel, user);
@@ -38,11 +38,27 @@ namespace TimeCardServices.Services
             user.Email = UserForSignUpViewModel.Email;
             user.Password = UserForSignUpViewModel.Password;
             user.UserName = UserForSignUpViewModel.UserName;
-
+            user.CreateDate = DateTime.Now;
+            user.UpdateDate = DateTime.Now;
+            user.CreateUser= create_user;
+            user.UpdateUser = create_user;
             user.Password= Utility.SecurityUtity.HashPassword(user.Password, user.UserName);
             return Repository.Insert(user);
         }
-
+        public List<User> GetAllUserInfo()
+        {
+           return Repository.GetAll().ToList();
+        }
+        public int DeleteOneUser(string userName)
+        {
+            User userDeleting = Repository.GetById(userName);
+            if (userDeleting != null)
+            {
+                return Repository.Delete(userDeleting);
+            }
+            else
+                return 0;
+        }
         public User GetUserByUsername(string user_name)
         {
             return Repository.GetById(user_name);

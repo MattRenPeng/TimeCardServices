@@ -47,6 +47,8 @@ namespace TimeCardServices
             services.AddTransient<IRepository<User>, Repository<User>>();
             services.AddTransient<IUserService, UserService>();
 
+            services.AddTransient<IRepository<TimeCard>, Repository<TimeCard>>();
+            services.AddTransient<ITimeCardService, TimeCardService>();
 
 
             #region JWT

@@ -1,13 +1,13 @@
-using System;
-using TimeCardServices.Controllers;
-using TimeCardServices.Repository;
-using Xunit;
-using System.Linq;
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using TimeCardServices.Model;
-using TimeCardServices.Services;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using TimeCardServices.Controllers;
+using TimeCardServices.Domain;
+using TimeCardServices.Model;
+using TimeCardServices.Repository;
+using TimeCardServices.Services;
+using Xunit;
 
 namespace TimeCardServices.Test
 {
@@ -61,7 +61,7 @@ namespace TimeCardServices.Test
 
             var result = controller.Login(TestModel);
             Assert.Equal(respected, result.StatusCode);
-        
+            Assert.Equal("User name or password is wrong!", ((List<MessageViewModel>)result.Value).FirstOrDefault().Message);
         }
         [Fact]
         public void SignUpSuccess()
@@ -71,17 +71,22 @@ namespace TimeCardServices.Test
             var result = controller.signUp(TestModel);
             Assert.Equal(respected, result.StatusCode);
             User existsUser = DB.Users.Find(TestModel.UserName);
+            Assert.Equal("TEST_ONE", existsUser.UserName);
+            Assert.Equal(Utility.SecurityUtity.HashPassword("123", "TEST_ONE"), existsUser.Password);
+            Assert.Equal("123@163.com", existsUser.Email);
+            Assert.True(string.IsNullOrEmpty(existsUser.Address));
             DB.Users.Remove(existsUser);
             DB.SaveChanges();
         }
         [Fact]
-        public void SignUpFaildWhenUserExists()
+        public void SignUpFailedWhenUserExists()
         {
           
             int respected = 404;
             Domain.UserForSignUpViewModel TestModel = new Domain.UserForSignUpViewModel() { UserName = user_name, Password = "123", Address = "", Email = "123@163.com" };
             var result = controller.signUp(TestModel);
             Assert.Equal(respected, result.StatusCode);
+            Assert.Equal("User name has existed!", ((List<MessageViewModel>)result.Value).FirstOrDefault().Message );
             User existsUser = DB.Users.Find(TestModel.UserName);
             if (existsUser != null)
             {

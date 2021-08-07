@@ -11,8 +11,11 @@ namespace TimeCardServices.Services
     {
         public User CheckLogin(UserViewModel userViewModel);
 
-        public int AddUser(UserForSignUpViewModel UserForSignUpViewModel);
+        public int AddUser(UserForSignUpViewModel UserForSignUpViewModel, string create_user);
 
         public User GetUserByUsername(string user_name);
+
+        public List<User> GetAllUserInfo();
+        public int DeleteOneUser(string userName);
     }
 }

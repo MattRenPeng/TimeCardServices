@@ -88,7 +88,7 @@ namespace TimeCardServices.Controllers
                 }
                 else
                 {
-                   int numerEffect= _service.AddUser(user);
+                   int numerEffect= _service.AddUser(user,user.UserName);
                     return new OkObjectResult(numerEffect);
                 }
             }
@@ -98,6 +98,7 @@ namespace TimeCardServices.Controllers
             }
 
         }
+
 
     }
 }

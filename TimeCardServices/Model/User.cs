@@ -13,5 +13,9 @@ namespace TimeCardServices.Model
         public string Password { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public DateTime? CreateDate { get; set; }
+        public string CreateUser { get; set; }
+        public DateTime? UpdateDate { get; set; }
+        public string UpdateUser { get; set; }
     }
 }
