@@ -50,7 +50,7 @@ namespace TimeCardServices.Controllers
 
         // DELETE api/<UserController>/5
         [Authorize(Roles = "Admin")]
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("Delete/{userName}")]
         public ObjectResult Delete(string userName)
         {
             int flag = _service.DeleteOneUser(userName);
