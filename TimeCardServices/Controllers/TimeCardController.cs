@@ -51,11 +51,13 @@ namespace TimeCardServices.Controllers
                 }
                 else
                 {
-                    //string userName = HttpContext.User.Identity.Name;
-                    //weekData.CreateDate = DateTime.Now;
-                    //weekData.UpdateDate = DateTime.Now;
-                    //weekData.CreateUser = userName;
-                    //weekData.UpdateUser = userName;
+                    
+                    string userName = HttpContext.User.Identity.Name;
+                    weekData.UserName = userName;
+                    weekData.CreateDate = DateTime.Now;
+                    weekData.UpdateDate = DateTime.Now;
+                    weekData.CreateUser = userName;
+                    weekData.UpdateUser = userName;
                     int numerEffect = _service.AddOneWeekData(weekData);
                     return new OkObjectResult(numerEffect);
                 }
@@ -72,6 +74,7 @@ namespace TimeCardServices.Controllers
             string userName = HttpContext.User.Identity.Name;
             return DeleteByUserName(weekStart, userName);
         }
+        [Authorize(Roles ="Admin")]
         [HttpDelete("Delete/{weekStart}/{userName}")]
         public ObjectResult DeleteByUserName(DateTime weekStart, string userName)
         {
