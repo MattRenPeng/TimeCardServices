@@ -15,7 +15,7 @@ namespace TimeCardServices.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class TimeCardController : ControllerBase
+    public class TimeCardController : BaseController
     {
 
         private readonly ITimeCardService _service;

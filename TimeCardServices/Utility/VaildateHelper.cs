@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using TimeCardServices.Domain;
 
@@ -23,7 +24,6 @@ namespace TimeCardServices.Utility
                     }
                 }
             }
-
             return new NotFoundObjectResult(messages);
         }
     }

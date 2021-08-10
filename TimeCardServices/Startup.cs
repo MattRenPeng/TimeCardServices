@@ -33,14 +33,11 @@ namespace TimeCardServices
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(o => o.AddPolicy("any", p => p.WithOrigins("http://localhost:8080/").AllowAnyMethod().AllowAnyHeader()));
+            services.AddCors(o=>o.AddPolicy("any",p=>p.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
             services.AddControllers();
        
             
-            //    services.AddEntityFrameworkSqlServer()
-            //.AddDbContext<TimeCardDBContext>(options =>
-            //{
-            //    options.UseSqlServer(Configuration["data:ConnectionString"]);
-            //});
             services.AddDbContext<TimeCardDBContext>(opt =>
             opt.UseSqlServer(Configuration.GetConnectionString("TimeCardDB")));
 
@@ -88,11 +85,11 @@ namespace TimeCardServices
             }
 
             app.UseHttpsRedirection();
-
+        
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-           
+            app.UseCors();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

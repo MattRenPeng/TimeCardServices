@@ -18,7 +18,7 @@ namespace TimeCardServices.Controllers
     [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController : BaseController
     {
       private readonly  IUserService _service;
 
